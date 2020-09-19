@@ -9,7 +9,11 @@
     <div class="camp-game">
       <div v-for="(line, index) in getLinesObject()" :key="line.idx">
         <div v-for="column in getColumns(index)" :key="column.idx" class="line">
-          <Block v-bind:field="column.block" v-on:game-over="setGameOver()" v-on:open-around="openAround(column.block)"></Block>
+          <Block v-bind:field="column.block"
+                 v-on:game-over="setGameOver()"
+                 v-on:open-around="openAround(column.block)"
+                 v-on:play="play()"
+          ></Block>
         </div>
       </div>
     </div>
@@ -33,6 +37,7 @@
       game = new MineField();
       gameOver = false;
       won = false;
+      MAX_HITS = 90;
 
       getLinesObject() {
           const lines = [];
@@ -59,10 +64,29 @@
       resetGame() {
           this.game = new MineField();
           this.gameOver = false;
+          this.won = false;
       }
 
       openAround(item: Field) {
-        this.game.openAround(item);
+          this.game.hit();
+          this.game.openAround(item);
+          if (this.game.getHits() === this.MAX_HITS) {
+              this.setWonGame();
+          }
+          console.log(this.game.getHits());
+      }
+
+      setWonGame() {
+          this.game.showAllBombs();
+          this.won = true;
+      }
+
+      play() {
+          this.game.hit();
+          console.log(this.game.getHits());
+          if (this.game.getHits() === this.MAX_HITS) {
+              this.setWonGame();
+          }
       }
   }
 </script>

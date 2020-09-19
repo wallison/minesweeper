@@ -2,11 +2,20 @@ import {Field} from './Field';
 
 export class MineField {
     fields: Field[][] = [];
+    hits = 0;
 
     constructor() {
         this.generateBoard();
         this.generateMines();
         this.setMinesAround();
+    }
+
+    public hit() {
+        this.hits++;
+    }
+
+    getHits(): number {
+        return this.hits;
     }
 
     public openAround(item: Field): void {
@@ -17,48 +26,72 @@ export class MineField {
             if (indexX > 0) {
                 itemVerify = this.fields[indexX-1][indexY];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexX > 0 && indexY > 0) {
                 itemVerify = this.fields[indexX-1][indexY-1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexX > 0 && indexY < 9) {
                 itemVerify = this.fields[indexX-1][indexY+1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexY > 0) {
                 itemVerify = this.fields[indexX][indexY-1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexY < 9) {
                 itemVerify = this.fields[indexX][indexY+1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexX < 9) {
                 itemVerify = this.fields[indexX+1][indexY];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexX < 9 && indexY > 0) {
                 itemVerify = this.fields[indexX+1][indexY-1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
             if (indexX < 9 && indexY < 9) {
                 itemVerify = this.fields[indexX+1][indexY+1];
                 if (!itemVerify.hasMine) {
+                    if (!itemVerify.isOpen) {
+                        this.hit();
+                    }
                     itemVerify.open();
                 }
             }
@@ -141,6 +174,16 @@ export class MineField {
                     }
                 }
                 this.fields[i][j].setMineAround(num);
+            }
+        }
+    }
+
+    public showAllBombs() {
+        for (const line of this.fields) {
+            for (const item of line) {
+                if (item.hasMine) {
+                    item.open();
+                }
             }
         }
     }

@@ -22,6 +22,8 @@
                     this.emitGameOver();
                 } else if (this.field.minesAround == 0) {
                     this.emitOpenAround();
+                } else {
+                    this.emitPlay();
                 }
             }
         }
@@ -34,6 +36,11 @@
         @Emit('open-around')
         emitOpenAround() {
             console.log('openAround');
+        }
+
+        @Emit('play')
+        emitPlay() {
+            console.log('play');
         }
 
         getColor(): string {
