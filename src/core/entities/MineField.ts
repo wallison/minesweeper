@@ -19,9 +19,9 @@ export class MineField {
     }
 
     public openAround(item: Field): void {
-        const indexX = item.X;
-        const indexY = item.Y;
         let itemVerify = item;
+        const indexX = itemVerify.X;
+        const indexY = itemVerify.Y;
         if ((indexX || indexX === 0) && (indexY || indexY === 0)) {
             if (indexX > 0) {
                 itemVerify = this.fields[indexX-1][indexY];

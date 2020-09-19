@@ -17,11 +17,12 @@
         </div>
       </div>
     </div>
-    <div class="camp-game-over" v-if="gameOver">
-      <div class="lost-message">Game Over</div>
+    <div class="camp-game-final" v-if="gameOver || won">
+      <div class="lost-message" v-if="gameOver">Game Over</div>
+      <div class="won-message" v-if="won">You Won!</div>
     </div>
 
-    <button class="reset-button" v-if="gameOver" v-on:click="resetGame()">RESET</button>
+    <button class="reset-button" v-if="gameOver || won" v-on:click="resetGame()">RESTART</button>
   </div>
 </template>
 
@@ -58,6 +59,7 @@
       }
 
       setGameOver() {
+          this.game.showAllBombs();
           this.gameOver = true;
       }
 
@@ -73,7 +75,6 @@
           if (this.game.getHits() === this.MAX_HITS) {
               this.setWonGame();
           }
-          console.log(this.game.getHits());
       }
 
       setWonGame() {
@@ -83,7 +84,6 @@
 
       play() {
           this.game.hit();
-          console.log(this.game.getHits());
           if (this.game.getHits() === this.MAX_HITS) {
               this.setWonGame();
           }
@@ -107,7 +107,7 @@
         flex-direction: row;
       }
     }
-    .camp-game-over {
+    .camp-game-final {
       position: relative;
       top: -300px;
       width: 300px;
@@ -117,7 +117,6 @@
       justify-content: center;
       align-items: center;
       background: rgba(0, 0, 0, 0.11);
-      color: brown;
       font-weight: bold;
       font-size: 30px;
 
@@ -125,6 +124,14 @@
         background: rgba(220, 220, 220, 0.8);
         padding: 5px;
         border-radius: 5px;
+        color: brown;
+      }
+
+      .won-message {
+        background: rgba(220, 220, 220, 0.8);
+        padding: 5px;
+        border-radius: 5px;
+        color: darkgreen;
       }
     }
 

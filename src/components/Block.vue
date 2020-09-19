@@ -16,7 +16,7 @@
         @Prop() field?: Field;
 
         stepOn() {
-            if (this.field) {
+            if (this.field && !this.field.isOpen) {
                 this.field.open();
                 if (this.field.hasMine) {
                     this.emitGameOver();
