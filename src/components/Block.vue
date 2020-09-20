@@ -1,9 +1,9 @@
 <template>
     <div class="block" v-on:click="stepOn()" v-bind:class="{ 'open-block': field.isOpen }">
-        <div v-if="field && field.isOpen &&!field.hasMine">
+        <div v-if="showNumber()">
             <div v-if="field.minesAround" v-bind:style="{'color': getColor()}">{{field.minesAround}}</div>
         </div>
-        <img v-if="field && field.isOpen && field.hasMine" src="../assets/img/bomb.png" width="20px">
+        <img v-if="showBomb()" src="../assets/img/bomb.png" width="20px">
     </div>
 </template>
 
@@ -14,6 +14,14 @@
     @Component
     export default class Block extends Vue {
         @Prop() field?: Field;
+
+        showNumber(): boolean {
+            return (this.field !== undefined) && this.field.isOpen && !this.field.hasMine;
+        }
+
+        showBomb(): boolean {
+            return (this.field !== undefined) && this.field.isOpen && this.field.hasMine;
+        }
 
         stepOn() {
             if (this.field && !this.field.isOpen) {

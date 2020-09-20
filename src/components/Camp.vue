@@ -1,6 +1,6 @@
 <template>
   <div class="camp">
-    <div style="height: 30px;margin-bottom: 10px;">
+    <div class="emoji" v-on:click="resetGame()">
       <img v-if="gameOver" src="../assets/img/emoji-lost.png" height="30px"/>
       <img v-if="won" src="../assets/img/emoji-won.png" height="30px"/>
       <img v-if="!gameOver && !won" src="../assets/img/emoji-game.png" height="30px"/>
@@ -95,6 +95,12 @@
   .camp {
     height: 400px;
     overflow-y: hidden;
+
+    .emoji {
+      height: 30px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
 
     .camp-game {
       width: 300px;

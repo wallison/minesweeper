@@ -25,74 +25,46 @@ export class MineField {
         if ((indexX || indexX === 0) && (indexY || indexY === 0)) {
             if (indexX > 0) {
                 itemVerify = this.fields[indexX-1][indexY];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexX > 0 && indexY > 0) {
                 itemVerify = this.fields[indexX-1][indexY-1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexX > 0 && indexY < 9) {
                 itemVerify = this.fields[indexX-1][indexY+1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexY > 0) {
                 itemVerify = this.fields[indexX][indexY-1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexY < 9) {
                 itemVerify = this.fields[indexX][indexY+1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexX < 9) {
                 itemVerify = this.fields[indexX+1][indexY];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexX < 9 && indexY > 0) {
                 itemVerify = this.fields[indexX+1][indexY-1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
-                }
+                this.tryToOpenAndTestAround(itemVerify);
             }
             if (indexX < 9 && indexY < 9) {
                 itemVerify = this.fields[indexX+1][indexY+1];
-                if (!itemVerify.hasMine) {
-                    if (!itemVerify.isOpen) {
-                        this.hit();
-                    }
-                    itemVerify.open();
+                this.tryToOpenAndTestAround(itemVerify);
+            }
+        }
+    }
+
+    private tryToOpenAndTestAround(itemVerify: Field) {
+        if (!itemVerify.hasMine) {
+            if (!itemVerify.isOpen) {
+                this.hit();
+                itemVerify.open();
+                if (itemVerify.minesAround === 0) {
+                    this.openAround(itemVerify)
                 }
             }
         }
