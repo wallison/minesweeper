@@ -1,5 +1,6 @@
 <template>
   <div class="camp">
+    <div class="title">Minesweeper</div>
     <div class="emoji" v-on:click="resetGame()">
       <img v-if="gameOver" src="../assets/img/emoji-lost.png" height="30px"/>
       <img v-if="won" src="../assets/img/emoji-won.png" height="30px"/>
@@ -93,8 +94,17 @@
 
 <style scoped lang="scss">
   .camp {
-    height: 400px;
+    height: 420px;
     overflow-y: hidden;
+
+    .title {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
     .emoji {
       height: 30px;

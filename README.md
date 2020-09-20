@@ -1,4 +1,4 @@
-# minefield
+# Minesweeper
 
 ## Project setup
 ```

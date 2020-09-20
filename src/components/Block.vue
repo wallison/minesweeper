@@ -1,9 +1,10 @@
 <template>
-    <div class="block" v-on:click="stepOn()" v-bind:class="{ 'open-block': field.isOpen }">
+    <div class="block" v-on:click="stepOn()" v-bind:class="{ 'open-block': field.isOpen }" v-on:contextmenu.prevent="setAlert()">
         <div v-if="showNumber()">
             <div v-if="field.minesAround" v-bind:style="{'color': getColor()}">{{field.minesAround}}</div>
         </div>
         <img v-if="showBomb()" src="../assets/img/bomb.png" width="20px">
+        <img v-if="showAlert()" src="../assets/img/flag-alert.png" width="20px">
     </div>
 </template>
 
@@ -34,6 +35,19 @@
                     this.emitPlay();
                 }
             }
+        }
+
+        setAlert() {
+            if (this.field) {
+                this.field.toggleAlert();
+            }
+        }
+
+        showAlert() {
+            if (this.field) {
+                return this.field.isWarned();
+            }
+            return false;
         }
 
         @Emit('game-over')
